@@ -5,14 +5,11 @@ import numpy as np
 import transforms3d
 import pybullet as p
 import pyquaternion
-import cv2
-from PIL import Image
-import io
-import time
-
 import sys
 sys.path.append('../../')
 from environment.physics0.Interface import Interface
+
+# Generate the stable poses for the objects.
 
 def extendMat(mat3, translation = None):
     mat4 = np.eye(4)
@@ -24,16 +21,7 @@ def extendMat(mat3, translation = None):
 interVal = 20
 root = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing'
 
-# datatype = 'apc' # apc ycb rss
-# datatype = 'ycb' # apc ycb rss
-# datatype = 'rss' # apc ycb rss
-
-# datatype = 'shapeNet' # apc ycb rss
-# datatype = 'modelNet' # apc ycb rss
-
-datatype = 'abc_good' # apc ycb rss
-
-# base_path = '2_{}_filt_8'.format(datatype)
+datatype = 'ycb' # apc ycb rss
 base_path = '0_{}_scale'.format(datatype)
 expName = '3_{}_stable_poses'.format(datatype)
 
@@ -47,11 +35,6 @@ if not os.path.exists(target_path): os.makedirs(target_path)
 if not os.path.exists(logDir) : os.makedirs(logDir)
 dirs = os.listdir(base_path)
 
-# t = time.localtime()
-# while t.tm_hour < 23:
-#     t = time.localtime()
-#     print(t.tm_hour)
-#     time.sleep(10)
 bin_dimension = [0.8, 0.8, 0.30]
 objPath = os.path.join(root, vhacd_path)
 interface = Interface(bin=bin_dimension, foldername=objPath,
@@ -175,32 +158,6 @@ for PlyPath in dirs:
                     invalidList.append(j)
             validList.append(i)
 
-        # print('before', len(meshList))
-        # length = np.power(len(meshList), 0.5)
-        # for i in range(len(meshList)):
-        #     xInc = i // length + 1
-        #     yInc = i % length + 1
-        #     meshList[i].apply_translation([xInc * extentX, yInc * extentY, 0])
-        # scene = trimesh.Scene(meshList)
-        # data = scene.save_image()
-        # image = np.array(Image.open(io.BytesIO(data)))
-        # image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        # cv2.imwrite(logDir + '/{}before.png'.format(name, len(meshList)), image)
-        #
-        # meshList = [meshList[i] for i in validList]
-        # print('after', len(meshList))
-        # length = np.power(len(meshList), 0.5)
-        # for i in range(len(meshList)):
-        #     xInc = i // length + 1
-        #     yInc = i % length + 1
-        #     meshList[i].apply_translation([xInc * extentX, yInc * extentY, 0])
-        #
-        # scene = trimesh.Scene(meshList)
-        # data = scene.save_image()
-        # image = np.array(Image.open(io.BytesIO(data)))
-        # image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
-        # cv2.imwrite(logDir + '/{}after.png'.format(name, len(meshList)), image)
-
         validTransforms = [transforms[i] for  i in validList]
         f = open(logDir + '/{}.txt'.format(name), 'w')
         for s in validTransforms:
@@ -209,6 +166,4 @@ for PlyPath in dirs:
         torch.save(validTransforms, logDir + '/{}.pt'.format(name))
 
         torch.save(validTransforms, target_path + '/{}.pt'.format(name))
-        # for i in range(len(meshList)):
-        #     meshList[i].apply_translation(-meshList[i].bounds[0])
-        #     meshList[i].export(os.path.join(target_path, name + str(i) + '.obj'))
+
