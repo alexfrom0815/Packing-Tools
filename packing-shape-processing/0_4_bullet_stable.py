@@ -16,9 +16,7 @@ import pyquaternion
 bin_dimension = [0.8, 0.8, 0.30]
 root = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing'
 
-datatype = 'apc' # apc ycb rss
-# datatype = 'ycb' # apc ycb rss
-# datatype = 'rss' # apc ycb rss
+datatype = 'ycb' # apc ycb rss
 
 source_path = os.path.join(root, '5_{}_vhacd'.format(datatype))
 pose_path   = os.path.join(root, '4_{}_min_area'.format(datatype))
@@ -43,11 +41,6 @@ for obj in os.listdir(objPath):
     obj = 'kong_air_dog_squeakair_tennis_ball_0'
     validT = []
 
-    # posePath = os.path.join(pose_path, obj + '.pt')
-    # transforms = torch.load(posePath)
-    # for T in transforms:
-        # quat = transforms3d.quaternions.mat2quat(T[0:3, 0:3])
-        # quat = [quat[1], quat[2], quat[3], quat[0]]  # Saved in xyzw
     if True:
         id = interface.addObject(obj,
                                  targetFLB = [0.4,0.4,0],
@@ -77,8 +70,5 @@ for obj in os.listdir(objPath):
 
         if r_diff > 0.1 or t_diff > 0.05:
             continue
-        # validT.append(T)
-    # if len(validT) != 0:
-    #     torch.save(validT, os.path.join(target_path, obj + '.pt'))
 
 

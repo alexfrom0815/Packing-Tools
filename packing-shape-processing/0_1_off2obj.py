@@ -1,14 +1,12 @@
 import trimesh
 import os
-# import pymeshlab
 
+# If the original data is in off format, use this script to convert it to obj format.
+
+# Change the root path to your own path
 root = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing'
 
-# datatype = 'apc' # apc ycb rss
-# datatype = 'ycb' # apc ycb rss
-# datatype = 'rss' # apc ycb rss
-datatype = 'shapeNet' # apc ycb rss
-# datatype = 'modelNet' # apc ycb rss
+datatype = 'ycb' # apc ycb rss
 
 source_path = '0_{}_scale'.format(datatype)
 target_path = '0_{}_scale'.format(datatype)
