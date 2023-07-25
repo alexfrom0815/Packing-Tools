@@ -2,7 +2,7 @@ import os
 import numpy as np
 from simulation import vrep
 import time
-import bincutting_obb1 as boxes
+import dataprocessing_bpp1 as boxes
 import threading
 from matplotlib import colors
 
