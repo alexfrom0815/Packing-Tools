@@ -17,17 +17,13 @@ bin_dimension = [0.8, 0.8, 0.30]
 root = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing'
 
 datatype = 'ycb' # apc ycb rss
-
+# read the vhaacd mesh
 source_path = os.path.join(root, '5_{}_vhacd'.format(datatype))
+# read the min area mesh poses to be checked
 pose_path   = os.path.join(root, '4_{}_min_area'.format(datatype))
+# the target path to save the stable poses
 target_path = os.path.join(root, '6_{}_stable'.format(datatype))
-# source_path = '/home/hang/Documents/GitHub/IRBPP/data/datas/BoxMeshLargeArea_vhacd'
-# source_path = '/home/hang/Documents/GitHub/IRBPP/data/datas/256'
-# source_path = '/home/hang/Documents/GitHub/IRBPP/data/datas/256_vhacd'
-# source_path = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing/2_apc_filt_8'
-# source_path = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing/0_apc_scale'
-# source_path = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing/0_apc_exp'
-source_path = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing/6_apc_mesh_with_pose'
+
 
 objPath = os.path.join(root, source_path)
 interface = Interface(bin=bin_dimension, foldername=objPath, visual=True, scale=[1, 1, 1])
