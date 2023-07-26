@@ -3,7 +3,6 @@ import trimesh
 import os
 import numpy as np
 import transforms3d
-import time
 
 # Rotate the mesh to the poses with the minimum area.
 

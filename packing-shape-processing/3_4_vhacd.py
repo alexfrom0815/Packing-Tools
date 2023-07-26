@@ -1,8 +1,4 @@
-import pybullet
-
-
 import pybullet as p
-import pybullet_data as pd
 import os
 import trimesh
 p.connect(p.DIRECT)
