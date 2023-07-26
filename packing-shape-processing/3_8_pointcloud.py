@@ -5,18 +5,9 @@ import os
 import trimesh
 import torch
 
-# datatype = 'apc' # apc ycb rss
-# datatype = 'ycb' # apc ycb rss
-# datatype = 'rss' # apc ycb rss
-# datatype = 'concave' # apc ycb rss
-# datatype = 'concaveArea' # apc ycb rss
-# datatype = 'board_random' # apc ycb rss
-# datatype = 'abc' # apc ycb rss
-datatype = 'abc_good' # apc ycb rss
+datatype = 'ycb' # apc ycb rss
 
 
-# sourceF  = '0_{}_scale'.format(datatype)
-# sourceF  = '7_{}_vhacd_with_pose'.format(datatype)
 targetF  = '8_{}_pointCloud_with_pose'.format(datatype)
 sourceF  = '10_{}_vhacd_with_pose'.format(datatype)
 # sourceF  = '14_{}_vhacd_with_pose'.format(datatype)

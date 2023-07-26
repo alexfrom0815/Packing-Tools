@@ -26,17 +26,8 @@ def extendMat(mat3, translation = None):
 
 root = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing'
 
-# datatype = 'apc' # apc ycb rss
-# datatype = 'ycb' # apc ycb rss
-# datatype = 'rss' # apc ycb rss
+datatype = 'ycb' # apc ycb rss
 
-# datatype = 'concave' # apc ycb rss
-# datatype = 'concaveArea' # apc ycb rss
-# datatype = 'boardAll' # apc ycb rss
-datatype = 'abc_good' # apc ycb rss
-
-# source_path = os.path.join(root, '2_{}_filt_8'.format(datatype))
-# source_path = os.path.join(root, '0_{}_scale'.format(datatype))
 source_path  = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/2_reconstruct/5_abc_draw'
 
 # source_path = os.path.join('/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/1_sort/1_{}_off'.format(datatype))
