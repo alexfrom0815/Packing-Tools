@@ -1,0 +1,7 @@
+.gitattributes
+.idea/
+test.blend
+*.py
+*.npy
+tempdata/*
+meshes/*
