@@ -1,5 +1,5 @@
 # Packing-Tools
-This repo shares our packing tools to provide research convenience for beginners, which includes simulation scenarios, packing shape processing, and some rendering & animation tools, if this repo is helpful for your research, please leave your star to encourage us to share more tools in the future :)
+This repo shares our packing tools to provide research convenience for beginners, which includes **simulation scenarios**, **packing shape processing**, and some **rendering & animation tools**, if this repo is helpful for your research, please leave your star to encourage us to share more tools in the future :)
 
 
 
