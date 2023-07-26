@@ -63,8 +63,6 @@ def reLocate(mesh, location, rotation_euler):
 def add_incontainer_object(meshPathList, poseList, color = None):
     meshes = []
     for partIdx, partPath in enumerate(meshPathList):
-        # if 'robot' not  in partPath: continue
-        # print(partIdx, partPath)
 
         poses = poseList[partIdx]
         orientation = poses[1]
@@ -122,7 +120,6 @@ def add_incontainer_object(meshPathList, poseList, color = None):
             bt.setMat_transparent(mesh, meshColor, alpha, transmission)
         else:
             meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
-            # setMat_plastic(mesh, meshColor) # 这个是塑料材质的, 我想要单色
             AOStrength = 0.0
             bt.setMat_singleColor(mesh, meshColor, AOStrength)
     return meshes
@@ -162,9 +159,6 @@ SecondLength = np.sum(schedule[0:5])
 ThirdLength = np.sum(schedule[0:8])
 ForthLength = np.sum(schedule[0:-2])
 TotalLength = np.sum(schedule)
-
-
-
 
 meshOnBeltBasicTrans = []
 meshOnBeltBasicX = []
@@ -246,13 +240,8 @@ if True:
     scenePathList += bufferPathList
 
     args = {
-      # "image_resolution": [4096, 4096], # recommend >1080 for paper figures
-      # "image_resolution": [512, 512], # recommend >1080 for paper figures
-      # "image_resolution": [2800, 2800], # recommend >1080 for paper figures
       "image_resolution": [1400, 1400], # recommend >1080 for paper figures
-      # "image_resolution": [280, 280], # recommend >1080 for paper figures
       "number_of_samples": 400, # recommend >200 for paper figures
-
       "mesh_scale": (baseScale,baseScale,baseScale), # UI: click mesh > Transform > Scale
       "shading": "smooth", # either "flat" or "smooth"
       "subdivision_iteration": 1, # integer
@@ -266,12 +255,6 @@ if True:
     numSamples = args["number_of_samples"]
     exposure = 1.5
     bt.blenderInit(imgRes_x, imgRes_y, numSamples, exposure, useBothCPUGPU=True, device='GPU')
-
-    ## read mesh (choose either readPLY or readOBJ)
-
-    # location = args["mesh_position"]
-    # rotation = args["mesh_rotation"]
-
     scale = args["mesh_scale"]
 
     incontaierMeshes = []
@@ -295,10 +278,8 @@ if True:
         bt.subdivision(mesh, level=args["subdivision_iteration"])
 
         ## default render as plastic
-        # colorIdx = np.random.randint(len(selectedColor))
         colorIdx = (partIdx + 1) % len(selectedColor)
         label = partPath.split('/')[-1]
-        # if label in [ 'camera.obj', 'camera2.obj', 'camera3.obj']:
         if label in ['camera.obj', 'camera2.obj', 'camera5.obj']:
             RGB = black
         elif label in ['container.obj', 'stand5.obj', 'stand6.obj', 'stand7.obj']:
@@ -319,7 +300,6 @@ if True:
         else:
             RGB = selectedColor[colorIdx]
         RGBA = (RGB[0], RGB[1], RGB[2], 1)
-        # if label in [ 'camera.obj', 'camera2.obj', 'robot.obj']:
         if label in ['robot.obj']:
             alpha = 1
             meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
@@ -327,7 +307,6 @@ if True:
             bt.setMat_transparent(mesh, meshColor, alpha, transmission)
         else:
             meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
-            # setMat_plastic(mesh, meshColor) # 这个是塑料材质的, 我想要单色
             AOStrength = 0.0
             bt.setMat_singleColor(mesh, meshColor, AOStrength)
 
@@ -341,12 +320,9 @@ if True:
             robotPoses = trajPoses[ThirdLength]
             partIdx -= 1
         subMat = extendMat(transforms3d.euler.euler2mat(*robotPoses[partIdx][1],  'rxyz'), robotPoses[partIdx][0]) #
-        # # newMat = np.dot(subMat,np.linalg.inv(mat))
         newMat = np.dot(originMat,subMat)
-        # print('part pose', newMat)
         location, rotation = readMat(newMat)
         rotation = np.array(rotation) / np.pi * 180
-        # print('read', location, rotation)
 
         mesh = bt.readMesh(partPath, location, rotation, scale)
         robotMeshes.append(mesh)
@@ -413,7 +389,6 @@ if True:
         bt.subdivision(mesh, level=args["subdivision_iteration"])
 
         ## default render as plastic
-        # colorIdx = np.random.randint(len(selectedColor))
         colorIdx = (partIdx + 2) % len(selectedColor)
         label = partPath.split('/')[-1]
 
@@ -441,7 +416,6 @@ if True:
             bt.setMat_transparent(mesh, meshColor, alpha, transmission)
         else:
             meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
-            # setMat_plastic(mesh, meshColor) # 这个是塑料材质的, 我想要单色
             AOStrength = 0.0
             bt.setMat_singleColor(mesh, meshColor, AOStrength)
 
@@ -489,7 +463,6 @@ if True:
 
         robotPoses = trajPoses[poseIdx]
 
-        # 物品放入容器并仿真, 删除旧物体
         if poseIdx >= ForthLength:
             icIdx = poseIdx-ForthLength
             if not removeDone:
@@ -535,7 +508,6 @@ if True:
                 rotation = np.array(rotation) / np.pi * 180
                 reLocate(mesh, location, rotation)
 
-        # 机器人的移动路径
         for partIdx, mesh in enumerate(robotMeshes):
             if partIdx == len(robotMeshes) - 2: # H
                 if poseIdx < FirstLength:
@@ -581,8 +553,8 @@ if True:
     sourcecamLocation = np.array((3, 0, 2))
     targetcamLocation = np.array((0.2, 0.25, 1.0))
 
-    sourcelookAtLocation = np.array((0, 0, 0.5)) # 同样需要调整
-    targetlookAtLocation = np.array((0.2, 0.25, 0.5)) # 同样需要调整
+    sourcelookAtLocation = np.array((0, 0, 0.5))
+    targetlookAtLocation = np.array((0.2, 0.25, 0.5))
 
     sourceAngle = cam.rotation_euler[2]
     targetAngle = sourceAngle + (50-90) * 1.0 / 180.0 * np.pi
@@ -602,5 +574,4 @@ if True:
         output_path = os.path.join(imageOutputPath, '{}.png'.format(str(poseIdx + renderInter * (i)).rjust(7, '0')))
         bt.renderImage(output_path, cam)
 
-    # 调整Z轴角度就可以了
     bpy.ops.wm.read_factory_settings(use_empty=True)

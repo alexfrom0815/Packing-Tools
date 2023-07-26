@@ -1,4 +1,3 @@
-import sys
 import os
 import trimesh
 import numpy as np
@@ -48,21 +47,16 @@ if not os.path.exists(imageOutputPath):
 if not os.path.exists(meshOutputPath):
   os.makedirs(meshOutputPath)
 
-# 记得写一个正面背面都渲染的逻辑
-# 调整一下scale就扔到服务器上去画了
-
-meshList = ['00010150_e16846f702644627a0063c10_trimesh_000.obj']
-# meshList = os.listdir(meshInputPath)
-
+meshList = ['2_3T_0.obj']
 baseScale = 1.25
-
 globalScale = None
+
 if 'tetris3D' in taskName:
     scaleList = []
     for meshFileName in meshList:
         mesh = trimesh.load(os.path.join(meshInputPath, meshFileName))
-        scaleList.append(baseScale / np.max(mesh.extents)) # 这个计算方式可能要改一下
-        scaleList.append(baseScale / mesh.scale) # 这个计算方式可能要改一下
+        scaleList.append(baseScale / np.max(mesh.extents))
+        scaleList.append(baseScale / mesh.scale)
     globalScale = np.min(scaleList)
 
 for meshFileName in meshList:
@@ -71,7 +65,6 @@ for meshFileName in meshList:
     mesh = trimesh.load(os.path.join(meshInputPath, meshFileName))
     if globalScale is None:
         mesh.apply_scale(baseScale / np.max(mesh.extents))
-        # mesh.apply_scale(baseScale / mesh.scale)
     else:
         mesh.apply_scale(globalScale)
 
@@ -83,7 +76,7 @@ for meshFileName in meshList:
         Tz = extendMat(transforms3d.euler.euler2mat(0, 0, angleIdx * np.pi * 2 / angles, 'sxyz'))
         rotMesh.apply_transform(Tz)
 
-        if rotMesh.extents[0] <= rotMesh.extents[1]:  # x 方向要少
+        if rotMesh.extents[0] <= rotMesh.extents[1]:
             if rotMesh.center_mass[1] <= rotMesh.centroid[1]:
                 areaList.append(rotMesh.extents[0] * rotMesh.extents[1])
                 angleList.append(angleIdx)
@@ -97,14 +90,10 @@ for meshFileName in meshList:
 
     for rotIdx in range(2):
         args = {
-          # "output_path": imageOutputPath,
           "output_path": os.path.join(imageOutputPath, meshName + '_{}.png'.format(rotIdx)),
-          # "image_resolution": [1080, 1080], # recommend >1080 for paper figures
           "image_resolution": [512, 512], # recommend >1080 for paper figures
           "number_of_samples": 200, # recommend >200 for paper figures
-          # "mesh_path": "./meshes/spot.ply", # either .ply or .obj
           "mesh_path": os.path.join(meshOutputPath, meshFileName), # either .ply or .obj
-          # "mesh_path": os.path.join(meshInputPath, meshFileName), # either .ply or .obj
           "mesh_position": (0.5, 0, 0), # UI: click mesh > Transform > Location
           "mesh_rotation": (0, 0, 35 + 180 * rotIdx), # UI: click mesh > Transform > Rotation
           "mesh_scale": (1,1,1), # UI: click mesh > Transform > Scale
@@ -143,7 +132,6 @@ for meshFileName in meshList:
         RGB = args["mesh_RGB"]
         RGBA = (RGB[0], RGB[1], RGB[2], 1)
         meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
-        # setMat_plastic(mesh, meshColor) # 这个是塑料材质的, 我想要单色
         AOStrength = 0.0
         bt.setMat_singleColor(mesh, meshColor, AOStrength)
 

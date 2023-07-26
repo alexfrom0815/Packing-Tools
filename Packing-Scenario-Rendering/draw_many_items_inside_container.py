@@ -1,5 +1,3 @@
-import os
-import sys
 import BlenderToolBox as bt
 import numpy as np
 import os
@@ -81,7 +79,6 @@ for trajIdx in range(len(trajs)):
         meshPathList.append(tempFile)
 
     args = {
-        # "output_path": imageOutputPath,
         "output_path": os.path.join(imageOutputPath, 'traj_{}.png'.format(trajIdx)),
         "image_resolution": [1080, 1080],  # recommend >1080 for paper figures
         "number_of_samples": 200,  # recommend >200 for paper figures
@@ -92,7 +89,6 @@ for trajIdx in range(len(trajs)):
         "shading": "smooth",  # either "flat" or "smooth"
         "subdivision_iteration": 1,  # integer
         "mesh_RGB": [144.0 / 255, 210.0 / 255, 236.0 / 255],  # mesh RGB
-        # "light_angle": (6, -30, -155)  # UI: click Sun > Transform > Rotation
         "light_angle": (0, 0, 0)  # UI: click Sun > Transform > Rotation
     }
 
@@ -132,19 +128,16 @@ for trajIdx in range(len(trajs)):
         ## default render as plastic
         if is_container:
             RGB = allColor[6]
-            # RGB = np.array([170, 145,  100]) * 1.0 / 255
         else:
             RGB = selectedColor[partIdx % len(selectedColor)]
 
         RGBA = (RGB[0], RGB[1], RGB[2], 1)
         meshColor = bt.colorObj(RGBA, 0.5, 1.0, 1.0, 0.0, 2.0)
-        # setMat_plastic(mesh, meshColor) # 这个是塑料材质的, 我想要单色
         AOStrength = 0.0
         bt.setMat_singleColor(mesh, meshColor, AOStrength)
 
     ## set invisible plane (shadow catcher)
     bt.invisibleGround(shadowBrightness=0.9)
-    # bt.invisibleGround(shadowBrightness=1)
 
     ## set camera
     camLocation = (0, 0, 3)
