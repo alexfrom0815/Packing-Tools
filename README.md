@@ -3,7 +3,7 @@ This repo shares our packing tools to provide research convenience for beginners
 
 
 
-We share our packing scenario implemented in V-REP, which includes a sawyer robot, RGB-D cameras, and a conveyor belt as the following. See demonstration video here [YouTube](https://www.youtube.com/watch?v=hBzZA_21G3M&t=6s), [bilibili](https://www.bilibili.com/video/BV1st4y1H7kU/?vd_source=b1e4277847248c95062cf16ab3b58e73).
+We share our packing scenario implemented in V-REP, which includes a sawyer robot, RGB-D cameras, and a conveyor belt as the following. See the demonstration video here [YouTube](https://www.youtube.com/watch?v=hBzZA_21G3M&t=6s), [bilibili](https://www.bilibili.com/video/BV1st4y1H7kU/?vd_source=b1e4277847248c95062cf16ab3b58e73).
 
 <img src="vrep-simulation-scene/images/packing.png" alt="Online packing" width="400" height="240">
 
