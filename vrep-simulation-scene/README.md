@@ -4,8 +4,9 @@ Hello guys, this is the repo for the v-rep simulation scenario shown in our AAAI
 You just need to open ttt files (like [bpp1.ttt](bpp1.ttt)) in the V-rep (also named CoppeliaSim) and run the corresponding python code (like [bpp1.py](bpp1.py)), 
 and you can get the following simulation scene which take a sawyer robot, RGB-D cameras, and a converyor belt into packing task consideration.
 
+
 ![IR-BPP](images/packing.png)
 
 You may need some basic knowledge about v-rep to understand the code. I recommend you to read the [CoppeliaSim User Manual](https://www.coppeliarobotics.com/helpFiles/). The [visual-pushing-grasping project](https://github.com/andyzeng/visual-pushing-grasping) also provides a good example for helping you to understand the v-rep API.
 
-Note that, this repo just replay some recorded packing results, you may need ajust some functions if you need to make it compatible with your own packing policy.
+Note that, this repo just replays some recorded packing results, you may need to adjust some functions if you need to make it compatible with your own packing policy.
