@@ -1,12 +1,5 @@
 import os
 import sys
-if os.path.exists('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-elif os.path.exists('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox')
-else:
-    assert os.path.exists('/home/zhaohang/zhaohang/IRBPP/picture/BlenderToolbox')
-    sys.path.append('/home/zhaohang/zhaohang/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
 import BlenderToolBox as bt
 import numpy as np
 import os

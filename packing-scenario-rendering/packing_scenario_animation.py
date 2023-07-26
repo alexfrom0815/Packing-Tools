@@ -3,15 +3,6 @@ import os
 import trimesh
 import time
 import numpy as np
-
-if os.path.exists('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-elif os.path.exists('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox')
-else:
-    assert os.path.exists('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox')
-    sys.path.append('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-
 import BlenderToolBox as bt
 import bpy
 import transforms3d
@@ -151,6 +142,7 @@ scriptName = 'largeScene'
 meshInputPath = './meshes/packing/largeScene/schedule'
 
 taskName = meshInputPath.split('/')[-1]
+taskName = 'onlineAnimation'
 imageOutputPath = "./images/{}/{}/{}".format(scriptName, taskName, timeStr)
 meshOutputPath = './tempdata/{}/{}'.format(scriptName, taskName)
 
@@ -162,9 +154,7 @@ if not os.path.exists(meshOutputPath):
 
 baseScale = 1
 baseposition = (0.2, -0.2, 0)
-# baseposition = (0., 0., 0)
 baserotation = (0, 0, 230)
-# baserotation = (0, 0, 0)
 baseposition = np.array(baseposition)
 baserotation = np.array(baserotation)
 
@@ -253,23 +243,9 @@ if True:
         savepath = os.path.join(meshOutputPath, folderName, partPath)
         scenePathList.append(savepath)
 
-
-    # folderName = 'incontainer'
-    # for partPath in os.listdir(os.path.join(meshOutputPath, folderName)):
-    #     savepath = os.path.join(meshOutputPath, folderName, partPath)
-    #     meshPathList.append(savepath)
-
     args = {
-      # "image_resolution": [4096, 4096], # recommend >1080 for paper figures
-      # "image_resolution": [512, 512], # recommend >1080 for paper figures
-      # "image_resolution": [2800, 2800], # recommend >1080 for paper figures
       "image_resolution": [1400, 1400], # recommend >1080 for paper figures
       "number_of_samples": 400, # recommend >200 for paper figures
-      # "number_of_samples": 100, # recommend >200 for paper figures
-      # "mesh_path": "./meshes/spot.ply", # either .ply or .obj
-      # "mesh_path": os.path.join(meshInputPath, meshFileName), # either .ply or .obj
-      # "mesh_position": (0.2, -0.2, 0), # UI: click mesh > Transform > Location
-      # "mesh_rotation": (0, 0, 230), # UI: click mesh > Transform > Rotation
       "mesh_scale": (baseScale,baseScale,baseScale), # UI: click mesh > Transform > Scale
       "shading": "smooth", # either "flat" or "smooth"
       "subdivision_iteration": 1, # integer

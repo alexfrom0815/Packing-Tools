@@ -2,15 +2,6 @@ import sys
 import os
 import trimesh
 import numpy as np
-
-if os.path.exists('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-elif os.path.exists('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox')
-else:
-    assert os.path.exists('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox')
-    sys.path.append('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-
 import BlenderToolBox as bt
 import bpy
 import transforms3d
@@ -46,17 +37,7 @@ def extendMat(mat3, translation = None):
 
 scriptName = 'singleMesh'
 
-meshInputPath = './meshes/packing/abc_origin_for_draw'
-# meshInputPath = './meshes/packing/abc_good_mass'
-# meshInputPath = './meshes/packing/ycb_no_vhacd'
-# meshInputPath = './meshes/packing/tetris3D_tri_to_quad'
-# meshInputPath = './meshes/packing/concaveArea'
-# meshInputPath = './meshes/packing/apc_mass'
-# meshInputPath = './meshes/packing/apc_mass'
-# meshInputPath = './meshes/packing/apc_origin'
-# meshInputPath = './meshes/packing/ycb_origin'
-# meshInputPath = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/3_packing/1_abc_downsample/20000'
-# meshInputPath = '/media/hang/f9f4716a-9f6f-4c7a-b604-6f088954bdef/dataset/process/1_sort/0_abc_obj'
+meshInputPath = './meshes/packing/tetris3D'
 
 taskName = meshInputPath.split('/')[-1]
 imageOutputPath = "./images/{}/{}".format(scriptName, taskName)

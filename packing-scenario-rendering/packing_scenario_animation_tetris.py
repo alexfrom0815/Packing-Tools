@@ -3,19 +3,6 @@ import os
 import trimesh
 import time
 import numpy as np
-
-if os.path.exists('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/hang/Documents/GitHub/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-elif os.path.exists('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/dell/zhaohang/IRBPP/picture/BlenderToolbox')
-elif os.path.exists('/home/zhaohang/zhaohang/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/home/zhaohang/zhaohang/IRBPP/picture/BlenderToolbox')
-elif os.path.exists('/mnt/d/GitHub/IRBPP/picture/BlenderToolbox'):
-    sys.path.append('/mnt/d/GitHub/IRBPP/picture/BlenderToolbox')
-else:
-    assert os.path.exists('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox')
-    sys.path.append('/home/duanyao/zhaohang/IRBPP/picture/BlenderToolbox') # change this to your path to “path/to/BlenderToolbox/
-
 import BlenderToolBox as bt
 import bpy
 import transforms3d
@@ -28,23 +15,20 @@ selectedColor = [allColor[35], # yellow
                  allColor[29], # red
                  allColor[30], # brown
                  ]
-# black = allColor[7]
+
 black = (0.38,0.38,0.38,1)
 gray = (0.65, 0.65, 0.65, 1) # not useful
 white = allColor[6]
 blue  = allColor[37]  # blue
 brown = allColor[30]  # light brown
 red = allColor[29] # red
-# darkWhite = allColor[22] # 31
 darkWhite = allColor[31] # 31 this is the perfect white
 lightYellow = allColor[42]
 darkYellow = allColor[17]
 orange = allColor[3]
 deepOrange = allColor[14]
 lightPink = allColor[28]
-# green = allColor[3]
 lightBlue = allColor[0]
-# 画图不要用黑色, 很难看出来阴影
 # light warm color as background, deep cool color as target
 
 def extendMat(mat3, translation = None):
@@ -122,7 +106,6 @@ def add_incontainer_object(meshPathList, poseList, color = None):
         bt.subdivision(mesh, level = args["subdivision_iteration"])
 
         ## default render as plastic
-        # colorIdx = np.random.randint(len(selectedColor))
         colorIdx = (partIdx) % len(selectedColor)
         label = partPath.split('/')[-1]
 
@@ -143,23 +126,12 @@ def add_incontainer_object(meshPathList, poseList, color = None):
             AOStrength = 0.0
             bt.setMat_singleColor(mesh, meshColor, AOStrength)
     return meshes
-# blender --background --python template_lazy.py
-# ~/tools/blender-3.1.2-linux-x64/blender --background --python
 
-# dell29
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender --background --python draw_single_mesh.py
-# laptop
-# /mnt/d/tools/blender-3.1.2-linux-x64/blender --background --python draw_single_mesh.py
-# dell30
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender  --background --python draw_single_mesh.py
 
 timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
 
 scriptName = 'largeScene'
-
-meshInputPath = './meshes/packing/largeScene/scheduleBuffer'
-
-taskName = meshInputPath.split('/')[-1]
+taskName = 'tetrisBuffer'
 imageOutputPath = "./images/{}/{}/{}".format(scriptName, taskName, timeStr)
 meshOutputPath = './tempdata/{}/{}'.format(scriptName, taskName)
 
@@ -184,12 +156,11 @@ for traj in trajPosesSchedule:
     trajPoses += traj
 trajPoses = np.array(trajPoses)
 
-# schedule = [239, 161, 250, 421, 33, 32, 70, 33, 32, 414, 79, 108, 120, 109]
 schedule = [240, 160, 250, 300, 30, 30, 70, 30, 30, 300, 80, 110, 120, 110]
-FirstLength = schedule[0] # 捡起来
-SecondLength = np.sum(schedule[0:5]) # 放下第一个
-ThirdLength = np.sum(schedule[0:8])  # 捡起来第二个
-ForthLength = np.sum(schedule[0:-2]) # 放下第二个
+FirstLength = schedule[0]
+SecondLength = np.sum(schedule[0:5])
+ThirdLength = np.sum(schedule[0:8])
+ForthLength = np.sum(schedule[0:-2])
 TotalLength = np.sum(schedule)
 
 
@@ -198,7 +169,7 @@ TotalLength = np.sum(schedule)
 meshOnBeltBasicTrans = []
 meshOnBeltBasicX = []
 
-objectMeshDir = './meshes/packing/tetris3D_tolerance_middle_tri_to_quad'
+objectMeshDir = './meshes/packing/tetris3D_for_animation/'
 shapeonbelt = [
     '1_2I_0.obj',
     '2_3L_1.obj',
@@ -243,7 +214,7 @@ for idx, meshonbeltName in enumerate(shapeonbelt):
     meshOnBeltBasicTrans.append(drawMat)
     meshOnBeltBasicX.append(objectInter * (idx + 1) + minX)
 
-objectMeshDir = './meshes/packing/tetris3D_tolerance_middle_tri_to_quad'
+objectMeshDir = './meshes/packing/tetris3D_for_animation'
 incontainerPathList, initList, incontainerTrajList = np.load('./dynamicsData/incontainerDynamicsTetris.npy', allow_pickle=True)
 for idx, name in enumerate(incontainerPathList):
     incontainerPathList[idx] = os.path.join(objectMeshDir, name)
@@ -281,12 +252,7 @@ if True:
       "image_resolution": [1400, 1400], # recommend >1080 for paper figures
       # "image_resolution": [280, 280], # recommend >1080 for paper figures
       "number_of_samples": 400, # recommend >200 for paper figures
-      # "number_of_samples": 100, # recommend >200 for paper figures
-      # "number_of_samples": 100, # recommend >200 for paper figures
-      # "mesh_path": "./meshes/spot.ply", # either .ply or .obj
-      # "mesh_path": os.path.join(meshInputPath, meshFileName), # either .ply or .obj
-      # "mesh_position": (0.2, -0.2, 0), # UI: click mesh > Transform > Location
-      # "mesh_rotation": (0, 0, 230), # UI: click mesh > Transform > Rotation
+
       "mesh_scale": (baseScale,baseScale,baseScale), # UI: click mesh > Transform > Scale
       "shading": "smooth", # either "flat" or "smooth"
       "subdivision_iteration": 1, # integer
