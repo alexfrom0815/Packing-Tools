@@ -32,54 +32,22 @@ def extendMat(mat3, translation = None):
         mat4[0:3,3] = translation
     return mat4
 
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender --background --python draw_single_mesh.py
-# ~/tools/blender-3.1.2-linux-x64/blender --background --python
-
 scriptName = 'episodeFigureDown'
 
-# taskName = 'IR_mix_no_vhacd'
-# taskName = 'tetris3D_tolerance_middle_tri_to_quad'
-taskName = 'IR_concaveArea3'
-
-if taskName == 'IR_mix_no_vhacd':
-    folderList = [
-        'IR_mix_mass_pcd_half-2022.09.02-18-15-06',
-        'IR_mix_mass_pcd_half_hier_10_for_draw_10_10-2022.09.02-20-42-17',
-        'IR_mix_mass_pcd_half_hier_10_for_draw_10_5-2022.09.02-20-42-33',
-        'IR_mix_mass_pcd_half_hier_10_for_draw_10_3-2022.09.02-20-42-51',
-                ]
-elif taskName == 'tetris3D_tolerance_middle_tri_to_quad':
-    folderList = [
+taskName = 'tetris3D_tolerance_middle_tri_to_quad'
+folderList = [
         'new_tetris3D_mass_middle_30_for_draw-2022.09.02-18-49-37',
         'new_tetris3D_mass_middle_30_hier_10_for_draw_10_10-2022.09.02-18-53-09',
         'new_tetris3D_mass_middle_30_hier_10_for_draw_10_5-2022.09.02-18-53-19',
-        'new_tetris3D_mass_middle_30_hier_10_for_draw_10_3-2022.09.02-18-53-27',
-                ]
-elif taskName == 'IR_concaveArea3':
-    folderList = [
-        'IR_concaveArea3_mass_category-2022.09.02-19-12-53',
-        'IR_concaveArea3_mass_hier_10_continue_for_draw_10_10-2022.09.02-19-16-12',
-        'IR_concaveArea3_mass_hier_10_continue_for_draw_10_5-2022.09.02-19-16-25',
-        'IR_concaveArea3_mass_hier_10_continue_for_draw_10_3-2022.09.02-19-16-49',
-    ]
+        'new_tetris3D_mass_middle_30_hier_10_for_draw_10_3-2022.09.02-18-53-27']
 
 bin_dimension = np.array([0.32,0.32,0.3])
+selected = [336, 361, 381, 511, 782, 948, 1144, 1246, 1256, 1369, 1428, 1521, 1767, 1904, 1987]
 
-selected = []
-if taskName == 'IR_mix_no_vhacd':
-    selected = [193, 361, 375, 385, 841, 875, 877, 920, 951, 970, 979, 1104, 1197, 1205, 1228, 1260, 1327, 1357, 1448, 1519, 1608, 1626, 1707, 1856]
-
-elif taskName == 'tetris3D_tolerance_middle_tri_to_quad':
-    selected = [336, 361, 381, 511, 782, 948, 1144, 1246, 1256, 1369, 1428, 1521, 1767, 1904, 1987]
-
-elif taskName == 'IR_concaveArea3':
-    selected =  [28, 118, 146, 377, 413, 661, 720, 814, 893, 988, 1005, 1053, 1057, 1088, 1225, 1309, 1387, 1403, 1485, 1513, 1533, 1666, 1811]
 
 
 for trajIdx in selected:
     for folder in folderList:
-
-
         dataPath = './tempdata/evaluation/{}/trajs.npy'.format(folder)
         meshInputPath = './meshes/packing/{}'.format(taskName)
         imageOutputPath = "./images/{}/{}/{}".format(scriptName, taskName, folder)

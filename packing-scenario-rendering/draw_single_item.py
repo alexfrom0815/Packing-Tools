@@ -44,13 +44,6 @@ def extendMat(mat3, translation = None):
         mat4[0:3,3] = translation
     return mat4
 
-# blender --background --python template_lazy.py
-
-# dell29
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender --background --python draw_single_mesh.py
-# dell30
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender  --background --python draw_single_mesh.py
-
 scriptName = 'singleMesh'
 
 meshInputPath = './meshes/packing/abc_origin_for_draw'
