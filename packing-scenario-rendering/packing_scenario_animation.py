@@ -127,13 +127,6 @@ def add_incontainer_object(meshPathList, poseList, color = None):
             AOStrength = 0.0
             bt.setMat_singleColor(mesh, meshColor, AOStrength)
     return meshes
-# blender --background --python template_lazy.py
-# ~/tools/blender-3.1.2-linux-x64/blender --background --python
-
-# dell29
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender --background --python draw_single_mesh.py
-# dell30
-# ~/zhaohang/tools/blender-3.1.2-linux-x64/blender  --background --python draw_single_mesh.py
 
 timeStr = time.strftime('%Y.%m.%d-%H-%M-%S', time.localtime(time.time()))
 
@@ -176,7 +169,7 @@ TotalLength = np.sum(schedule)
 meshOnBeltBasicTrans = []
 meshOnBeltBasicX = []
 
-objectMeshDir = './meshes/packing/IR_mix_no_vhacd'
+objectMeshDir = './meshes/packing/general'
 shapeonbelt = [
                '007_tuna_fish_can_0.obj',
                'mommys_helper_outlet_plugs_0.obj',
@@ -190,7 +183,6 @@ for i in range(len(shapeonbelt)):
 
 shapeonbelt.insert(0, os.path.join(meshOutputPath,
                                    'objectForAnimation.obj'))
-
 
 allparts = './meshes/packing/largeScene/{}/sceneParts/'.format('IRBPP')
 camera = trimesh.load(os.path.join(allparts, 'camera.obj'))
