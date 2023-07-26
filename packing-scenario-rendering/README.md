@@ -8,7 +8,7 @@ Recommended Blender version: Blender-3.1.2
 ```
 path/to/your/blender/blender --background --python draw_single_item.py
 ```
-<img src="./images/dataset.png" alt="Packing" width="600" height="200">
+<img src="./images/dataset.png" alt="Packing" width="800" height="200">
 
 
 ### Draw Many Items Inside the Container
