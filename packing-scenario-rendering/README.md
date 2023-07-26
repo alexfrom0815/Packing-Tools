@@ -16,13 +16,13 @@ path/to/your/blender/blender --background --python draw_single_item.py
 ```
 path/to/your/blender/blender --background --python draw_many_items_inside_container.py
 ```
-<img src="./images/packing_in_container.png" alt="Packing" width="400" height="290">
+<img src="./images/packing_in_container.png" alt="Packing" width="600" height="450">
 
 ### Packing Scenario Animation
 ```
 path/to/your/blender/blender --background --python packing_scenario_animation.py
 ```
-<img src="./images/buffer_faster.gif" alt="Packing" width="400" height="290">
+<img src="./images/buffer_faster.gif" alt="Packing" width="600" height="440">
 
 
 ### ACKNOWLEDGEMENTS
